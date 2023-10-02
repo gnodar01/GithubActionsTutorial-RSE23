@@ -3,6 +3,9 @@ name: Orcasound processing
 on:
   # To run manually
   workflow_dispatch:
+  schedule:
+    # minute, hour, day of month, month, day of week
+    - cron: '18 10 * * *'
 
 jobs:
   process:
@@ -66,12 +69,15 @@ jobs:
       run: |
         rm -rf bush_point/${{ env.timestamp }}/*.ts
         rm -rf bush_point/${{ env.timestamp }}/*.wav
-    - uses: stefanzweifel/git-auto-commit-action@v4
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
           commit_message: Commit to Readme
           file_pattern: '*.png'
 
-    - uses: actions/upload-artifact@v2
+    - name: Upload spectrograms
+      uses: actions/upload-artifact@v2
       with:
         name: Spectrograms
         path: |
