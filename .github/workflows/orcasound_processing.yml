@@ -69,7 +69,6 @@ jobs:
           commit_message: Commit to Readme
           file_pattern: '*.png'
 
- 
     - uses: actions/upload-artifact@v2
       with:
         name: Spectrograms
